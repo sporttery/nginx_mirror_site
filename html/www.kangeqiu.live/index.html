@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>#title#</title>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0,user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta httpEquiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="keywords"
+        content="NBA直播, 火箭直播, 足球直播, 直播吧, 足球比分, 体育新闻, 英超直播, 英超集锦, 西甲直播, 中超直播, 中超集锦, 体育直播, NBA集锦, CBA直播, 篮球直播, 意甲直播, 意甲集锦, 欧冠直播, 欧冠集锦, 看个球直播">
+    <meta name="description"
+        content="看个球app包揽NBA、英超、西甲、中超、等国内外足球篮球的高清免费视频直播，同时提供实时体育新闻、独家自制的精彩赛事集锦、专业的比分数据以及智能推料，纵览事件全程获悉实时资讯，竭尽全力满足每位球迷的需求和体验感。">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="css/main.css">
+    <script rel="preload"  src="http://lib.sinaapp.com/js/jquery/2.0.2/jquery-2.0.2.min.js"></script>
+    <script rel="preload"  src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.min.js"></script>
+    <script rel="preload"  src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.plugins.min.js"></script>
+</head>
+
+<body>
+    <div class="web_view">
+        <div class="top">
+            <div class="widlize_1200">
+                <div class="logo web_front"></div>
+                <div class="nav">
+                    <a href="/" target="_self" class="link nuxt-link-exact-active nuxt-link-active">新闻</a>
+                    <a href="/lives.html" target="_self" class="link">直播</a>
+                </div>
+            </div>
+        </div>
+        <div class="sub_nav">
+            <div class="widlize_1200">
+                <div class="content" id="subMenu"><a href="/?subId=0&hot=1" class="link">热门</a><a href="/?subId=19&cid=0"
+                        class="link">战疫情</a><a href="/?subId=6&cid=0" class="link">NBA</a><a href="/?subId=7&cid=0"
+                        class="link">CBA</a><a href="/?subId=8&cid=0" class="link">欧冠</a><a href="/?subId=9&cid=0"
+                        class="link">欧联</a><a href="/?subId=10&cid=19" class="link">英超</a><a href="/?subId=11&cid=41"
+                        class="link">西甲</a><a href="/?subId=12&cid=42" class="link">意甲</a><a href="/?subId=13&cid=43"
+                        class="link">德甲</a><a href="/?subId=14&cid=44" class="link">法甲</a><a href="/?subId=17&cid=0"
+                        class="link">国足</a><a href="/?subId=15&cid=45" class="link">中超</a><a href="/?subId=16&cid=0"
+                        class="link">亚冠</a></div>
+            </div>
+        </div>
+
+        <div class="display_zoo">
+            <div class="content">
+                <div class="home router_view">
+                    <div class="game_broad widlize_1200" style="height: 30px;padding:0 0 ;">
+                    </div>
+                    <div class="main widlize_1200">
+                        <div class="left" id="newsList">
+                            新闻列表加载中...
+                        </div>
+                        <div class="right">
+                            <div class="tab_head">
+                                <p class="p" data-cid="19">英超</p>
+                                <p class="p" data-cid="41">西甲</p>
+                                <p class="p" data-cid="42">意甲</p>
+                                <p class="p" data-cid="43">德甲</p>
+                                <p class="p" data-cid="44">法甲</p>
+                            </div>
+                            <div class="tab_sub">
+                                <p class="p active" data-action="score">积分榜</p>
+                                <p class="p" data-action="shooter">射手榜</p>
+                            </div>
+                            <div class="tab_body">
+                                <table class="table">
+                                    <thead>
+                                        <tr class="th"><td class="td">排名</td><td class="td">球队</td><td class="td">胜/平/负</td><td class="td">积分</td></tr>
+                                    </thead>
+                                    <tbody>
+                                        积分榜列表加载中...
+                                    </tbody>
+
+                                </table>
+                                <a href="#">&nbsp;&nbsp;</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer class="footer">
+                    <div class="widlize_1200">
+                        &nbsp;
+                    </div>
+                </footer>
+            </div>
+        </div>
+        <div class="side_float">
+            <div class="qr_code">
+                <div class="code_wapper"></div>
+                <div class="text">
+                    扫码下载App
+                    <br>畅享高清直播
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="initData" value="initDataValue" />
+    <script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/2.0.2/jquery-2.0.2.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.plugins.min.js"></script>
+     
+    <script type="text/javascript">
+    var nextPage = 2;
+    var loaddingPage = {};
+    $(function(){
+        $('.lazy').Lazy();
+        var initData = $("#initData").val().split(",");
+        var token = initData[0];
+        var cid = initData[1];
+        var subId = initData[2];
+        var hot = initData[3];
+        if(cid==0){
+            cid = 19;
+        }
+        $("#subMenu a").each((idx,el)=>{
+            if($(el).attr("href").indexOf("subId="+subId)!=-1){
+                $(el).addClass("active");
+            }
+        });
+        $(".tab_head  p").each((idx,el)=>{
+            if($(el).data("cid") == cid ){
+                $(el).addClass("active");
+            }
+        });
+        if(token && subId){
+            $(window).scroll(function(){   //开始监听滚动条
+                var top = $(document).scrollTop();  //滚动条距离顶部的高度
+                var newsList = $("#newsList");
+                var newsListHeight = newsList.height();
+                var insertAfter=newsList.find("a:last");
+                if(top > newsListHeight/2 && nextPage > 0 && !loaddingPage["_"+nextPage]){
+                    loaddingPage["_"+nextPage] = true;
+                    $.getJSON("/api/web/news?channel_id="+subId+"&page="+nextPage+"&token="+token,function(newsdata){
+                        loaddingPage["_"+nextPage] = false;
+                        if (newsdata.data) {
+                            var html = [];
+                            for (var i = 0; i < newsdata.data.list.length; i++) {
+                                var news = newsdata.data.list[i];
+                                html.push('<a href="/news_' + news.id + '.html" target="_blank" class="news"><div class="img_wapper"><img class="img lazy_post lazy" data-src="' + news.img + '"></div> <div class="right"><div class="text">' + news.title + '</div> <div class="time">' + news.time + '</div></div></a>');
+                            }
+                            $(html.join("")).insertAfter(insertAfter);
+                            $('.lazy').Lazy();
+                            if(newsdata.data.list.length < 20){
+                                nextPage = 0;
+                            }else{
+                                nextPage += 1;
+                            }
+                        }else{
+                            nextPage = 0;
+                        }
+                    });
+                }
+            })
+        }
+        var thead = $(".tab_body > table > thead");
+        var tbody = $(".tab_body > table > tbody");
+        
+        function pClick(e){
+            var obj = e.target;
+            var jObj = $(e.target);
+            if(jObj.hasClass("active")){
+                return;
+            }
+            jObj.parent().find(".active").removeClass("active");
+            jObj.addClass("active");
+            var cid = $(".tab_head .active").data("cid");
+            var action = $(".tab_sub .active").data("action");
+            thead.html("");
+            tbody.html("加载中。。");
+            $.getJSON("/api/web/data/"+action+"?channel_id="+cid,(scoredata)=>{
+                if (scoredata.data) {
+                    var html = [];
+                    if(scoredata.data.score){
+                        for (var i = 0; i < scoredata.data.score.length; i++) {
+                            var score = scoredata.data.score[i];
+                            html.push('<tr class="tr"><td class="td">' + score.position + '</td> <td class="td"><div class="img_wapper"><img class="img lazy_brand lazy" data-src="' + score.logo + '"></div>' + score.name + '</td> <td class="td">' + score.won + '/' + score.draw + '/' + score.lose + '</td> <td class="td">' + score.score + '</td></tr>');
+                        }
+                        thead.html('<tr class="th"><td class="td">排名</td><td class="td">球队</td><td class="td">胜/平/负</td><td class="td">积分</td></tr>');
+                    }else if(scoredata.data.list){
+                        for (var i = 0; i < scoredata.data.list.length; i++) {
+                            var player = scoredata.data.list[i];
+                            html.push('<tr class="tr"><td class="td">' + player.position + '</td> <td class="td"><div class="img_wapper"><img class="img lazy_brand lazy" data-src="' + player.logo + '"></div>' + player.name + '</td> <td class="td">' + player.team + '</td> <td class="td">' + player.value + '</td></tr>');
+                        }
+                        thead.html('<tr class="th"><td class="td unm_w">排名</td> <td class="td">球员</td> <td class="td">球队</td> <td class="td unm_w">进球</td></tr>');
+                    }
+                    tbody.html(html.join(""));
+                    $('.lazy').Lazy();
+                }
+            })
+        }
+        $(".tab_head p").click(pClick);
+        $(".tab_sub p").click(pClick);
+    });
+    </script>
+</body>
+
+</html>
+
+
+</html>

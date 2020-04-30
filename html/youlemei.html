@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+	    <meta charset="utf-8">
+	    <meta http-equiv="x-ua-compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+	    <title>直播</title>
+	    <style>
+	        body,
+	        html {
+	            height: 100%;
+	            padding: 0;
+	           	margin: 0;
+	        }
+		</style>
+		<link type="text/css" rel="stylesheet" href="http://img1.bdstatic.com/static/common/pkg/co_0e3b33e.css" />
+		<link type="text/css" rel="stylesheet" href="http://img1.bdstatic.com/static/searchresult/pkg/result_e910a41.css" />
+		<link type="text/css" rel="stylesheet" href="http://img1.bdstatic.com/static/common/widget/ui/slider/slider_ecce195.css" />
+		<link type="text/css" rel="stylesheet" href="http://img0.bdstatic.com/static/common/widget/ui/userInfo/userInfo_5bd6198.css" />
+		<link type="text/css" rel="stylesheet" href="http://img0.bdstatic.com/static/searchresult/widget/ui/base/view/AvFilterView/AvFilterView_5709328.css" />
+		<link type="text/css" rel="stylesheet" href="http://img0.bdstatic.com/static/searchresult/widget/ui/base/view/AvMuiltSizeFilterView/AvMuiltSizeFilterView_5a57aa1.css" />
+		<link type="text/css" rel="stylesheet" href="http://img0.bdstatic.com/static/searchresult/widget/ui/base/view/AvTypeFilterView/AvTypeFilterView_cea6b92.css" />
+		<link type="text/css" rel="stylesheet" href="http://img1.bdstatic.com/static/searchresult/widget/ui/base/view/AvColorWallFilterView/AvColorWallFilterView_cf8a646.css" />
+		<link type="text/css" rel="stylesheet" href="http://img2.bdstatic.com/static/searchresult/widget/ui/base/view/AvColorFilterView/AvColorFilterView_5b1da63.css" />
+		<link type="text/css" rel="stylesheet" href="http://img1.bdstatic.com/static/searchresult/widget/pagelets/base/newImgfilter/newImgFilter_d87f4bc.css" />
+		<link type="text/css" rel="stylesheet" href="http://img2.bdstatic.com/static/common/widget/loginbar/loginbar_e8a6507.css" />
+   
+		
+		<script type="text/javascript" src="https://screencut.oss-cn-shanghai.aliyuncs.com/liequ/ckplayer.js"></script>
+		<script type="text/javascript" src="https://dss1.bdstatic.com/5eN1bjq8AAUYm2zgoY3K/r/www/cache/static/protocol/https/jquery/jquery-1.10.2.min_65682a2.js"></script>
+		<!-- <script type="text/javascript" src="http://etzb.tv/public/home/js/xgplayer.js"></script>
+		<script type="text/javascript" src="http://etzb.tv/public/home/js/index.js"></script> -->
+ 	</head>
+
+	<body>
+
+		<div id="wrapper">
+			<div id="imgid" style="width:100%">
+				<div class="imgpage">
+					<ul class="imglist clearfix pageNum0" style="position: relative;" id="datalist">
+
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div id="player" class="player" style="width: 500px; height: 500px; z-index: 99999999; position: absolute"></div>
+
+		<script type="text/javascript">
+			let obj = $("#player");
+			function leftTop(){
+				
+				var screenWidth = $(window).width();
+				var screenHeight = $(window).height();
+				var scrolltop = $(document).scrollTop();
+				var scrollleft = $(document).scrollLeft();
+				var objLeft = (screenWidth - obj.width())/2 + scrollleft  ;
+				var objTop = (screenHeight - obj.height())/2 + scrolltop;
+				obj.css({left: objLeft + 'px', top: objTop + 'px',position:'absolute'});
+			}
+			
+			
+			$( window ).scroll(function() {
+				leftTop();
+			});
+			$(window).resize(function() {
+				leftTop();
+			});
+			var datalist = [];
+			$.get("/youlemei.txt",function(d){
+				var obj = JSON.parse(d);
+				var html = [];
+				datalist = obj.list;
+				for(var i=0;i<datalist.length;i++){
+					let video = datalist[i];
+					let title =  video.userName +" " + video.title + " , 在线人数：" + video.nums;
+					html.push('<li class="imgitem" style="width: 256px; height: 182.178px; margin-right: 5px; margin-bottom: 5px;"><div class="imgbox"><a style="display: block; width: 256px; height: 181.292px; margin-top: 0.443195px;" href="javascript:playVideo('+i+');"> '+
+					'<img class="main_img img-hover" style="background-color: rgb(163, 166, 185); width: 256px; height: 140px;" title='+title+' src='+video.imgUrl+' video-src="'+video.pull+'"/><br/><span style="margin-left:5px;">'+title+'</span></a></div></li>');
+				}
+				$("#datalist").html(html.join(''));
+				// console.log(obj);
+			});
+		    // var vConsole = new VConsole();
+
+		    // 平台、设备和操作系统 ，返回ture或false,true表示是移动端，false表示不是移动端
+		    function ismobile() {
+		        var mobileArry = ["iPhone", "iPad", "Android", "Windows Phone", "BB10; Touch", "BB10; Touch", "PlayBook", "Nokia"];
+		        var ua = navigator.userAgent;
+
+		        var res = mobileArry.filter(function (arr) {
+		            return ua.indexOf(arr) > 0;
+		        });
+
+		        return res.length > 0;
+		    }
+
+		    // 清晰度视频地址列表
+		    var videoArr = [];
+			var player ;
+		    function playVideo(i) {
+				var video = datalist[i];
+				// flash播放器
+				var videoObject = {
+						container: '#player', //容器的ID或className
+						variable: 'player',//播放函数名称
+						live: true,
+						autoplay: true,
+						flashplayer: true, // 强制使用flashplayer播放
+						loaded: 'loadedHandler', //当播放器加载后执行的函数
+						video: [[video.pull,'video/flv', video.userName, 6]]
+				};
+				console.log(videoObject);
+				player = new ckplayer(videoObject);
+
+				// if((video.pull).indexOf('.mp4')!==-1){
+				// 	player=new Player({
+				// 		id: 'player',
+				// 		autoplay: true,
+				// 		volume: 0.3,
+				// 		url:video.pull,
+				// 		fluid: true
+				// 	});
+				// }else {
+				// 	player = new window.FlvJsPlayer({
+				// 		id: 'player',
+				// 		isLive: true,
+				// 		autoplay: true,
+				// 		url:video.pull,
+				// 		playsinline: true,
+				// 		fluid: true
+				// 	});
+				// }
+				leftTop();
+			}
+
+		   
+
+		    function loadedHandler(e) {
+		        player.addListener('error', errorHandler);
+		        player.addListener('play', playHandler);
+		        player.addListener('loadedmetadata', loadedmetadataHandler);
+		        player.addListener('buffer', bufferHandler);
+		        player.addListener('time', timeHandler);
+		        player.addListener('definitionChange', definitionHandler);
+		    }
+
+		    function definitionHandler(type) {
+		        console.log(type);
+		    }
+
+		    function bufferHandler(buffer) {
+		        console.log('缓冲中', buffer);
+		    }
+
+		    function errorHandler() {
+		        console.log(81);
+		    }
+
+		    function playHandler() {
+		        console.log('播放')
+		        // document.getElementById('mask').style.display = 'none'
+		    }
+
+		    function loadedmetadataHandler() {
+		        console.log('元素加载成功')
+		    }
+
+		    function timeHandler(time) {
+		        console.log('当前播放时间（秒）：' + time);
+		    }
+
+		    // 检查用户网速
+		    // window.navigator.connection.downlink
+		</script>
+	</body>
+</html>
